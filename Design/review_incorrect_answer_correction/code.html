@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TCF Lab - Review</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Public+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#93000b",
+                        "on-primary-container": "#828796",
+                        "surface-bright": "#f8f9fa",
+                        "on-primary-fixed-variant": "#414754",
+                        "on-error": "#ffffff",
+                        "primary-container": "#1a202c",
+                        "on-secondary-container": "#fffbff",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-tertiary-fixed-variant": "#005231",
+                        "on-tertiary-container": "#43976a",
+                        "tertiary-fixed-dim": "#83d8a6",
+                        "secondary-container": "#d9352f",
+                        "tertiary-fixed": "#9ff5c1",
+                        "inverse-on-surface": "#f0f1f2",
+                        "outline": "#76777c",
+                        "on-primary-fixed": "#161c27",
+                        "error": "#ba1a1a",
+                        "border-quiet": "#E5E7EB",
+                        "secondary-fixed-dim": "#ffb4ab",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c6c6cc",
+                        "ink-navy": "#101827",
+                        "progress-blue": "#3B82F6",
+                        "on-surface": "#191c1d",
+                        "surface-dim": "#d9dadb",
+                        "primary": "#030813",
+                        "surface-tint": "#585e6c",
+                        "surface-container-high": "#e7e8e9",
+                        "tertiary": "#000b04",
+                        "primary-fixed": "#dde2f3",
+                        "surface-container": "#edeeef",
+                        "secondary-fixed": "#ffdad6",
+                        "surface": "#f8f9fa",
+                        "surface-container-low": "#f3f4f5",
+                        "surface-container-lowest": "#ffffff",
+                        "correction-brick": "#9E3D31",
+                        "error-container": "#ffdad6",
+                        "success-muted": "#E6F4EA",
+                        "primary-fixed-dim": "#c1c6d7",
+                        "on-tertiary-fixed": "#002111",
+                        "on-background": "#191c1d",
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#410002",
+                        "paper-cool": "#F4F7F6",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e1e3e4",
+                        "tertiary-container": "#002614",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#45474c",
+                        "inverse-primary": "#c1c6d7",
+                        "background": "#f8f9fa",
+                        "secondary": "#b6191a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "container-max-width": "1024px",
+                        "margin-desktop": "40px",
+                        "content-column": "680px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Public Sans", "sans-serif"],
+                        "display-fr": ["Libre Caslon Text", "serif"],
+                        "headline-lg": ["Libre Caslon Text", "serif"],
+                        "body-md": ["Public Sans", "sans-serif"],
+                        "body-sm": ["Public Sans", "sans-serif"],
+                        "label-caps": ["Public Sans", "sans-serif"],
+                        "quiz-option": ["Public Sans", "sans-serif"],
+                        "body-lg-serif": ["Libre Caslon Text", "serif"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "display-fr": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "quiz-option": ["18px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "body-lg-serif": ["20px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- SideNavBar (Shared Component) -->
+<nav class="h-screen w-64 fixed left-0 top-0 border-r border-quiet bg-surface-container-low hidden md:flex flex-col py-gutter px-4 z-50">
+<!-- Header -->
+<div class="flex items-center gap-4 mb-10 px-4">
+<img alt="User profile" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXeEwawUzYfDBUeGSiTL48mYnvZw4es9XepJl_SbMweRZITN79azaHMLnZjJ-suGVuR6ooEveC0rqsrqGnXwWZoDt1baWS9ioU1de0BokZI3aO9wh-8zENIN14KuJx1nGHVn3_wi66-R51MQcVbKROuvj6cAU6j88TvVPA2BwzZSc6xW2Jje8ehimd3mfUiQepkeXHKjnyUrS003Svh_Zxbs2jUPp9hfocboWmCnzr2eHbr0jaKtwJHA"/>
+<div>
+<h1 class="text-headline-md font-headline-md font-bold text-ink-navy">TCF Lab</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Study Instrument</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex flex-col gap-2 flex-grow">
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-ink-navy hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="text-label-caps font-label-caps uppercase">Today</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-ink-navy hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="text-label-caps font-label-caps uppercase">Learn</span>
+</a>
+<!-- Active -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-ink-navy font-bold border-r-2 border-ink-navy bg-paper-cool opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined" data-icon="import_contacts" style="font-variation-settings: 'FILL' 1;">import_contacts</span>
+<span class="text-label-caps font-label-caps uppercase">Review</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-ink-navy hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="library_books">library_books</span>
+<span class="text-label-caps font-label-caps uppercase">Library</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-ink-navy hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="text-label-caps font-label-caps uppercase">Progress</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-0 md:ml-64 flex flex-col min-h-screen">
+<!-- Progress Bar (Thin) -->
+<div class="w-full h-1 bg-surface-container-highest sticky top-0 z-40">
+<div class="h-full bg-ink-navy" style="width: 8.33%;"></div>
+</div>
+<!-- Content Container -->
+<div class="flex-1 flex flex-col items-center py-margin-desktop px-gutter md:px-margin-desktop overflow-y-auto">
+<div class="w-full max-w-content-column flex flex-col gap-12 pt-8">
+<!-- Header / Word Section -->
+<header class="flex flex-col items-center text-center gap-4">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<span class="text-body-md font-body-md tracking-widest">/ku.ʁje/</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-body-md font-body-md italic">n.m.</span>
+</div>
+<h1 class="text-display-fr font-display-fr text-ink-navy cursor-pointer hover:text-progress-blue transition-colors">Courrier</h1>
+</header>
+<div class="w-full h-px bg-border-quiet"></div>
+<!-- Question Section -->
+<section class="flex flex-col gap-6">
+<h2 class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-widest">Choisissez la définition correcte</h2>
+<!-- Quiz Options Container -->
+<div class="flex flex-col border-t border-border-quiet">
+<!-- Option A (Correct - Selected State) -->
+<div class="relative group cursor-pointer">
+<input class="peer sr-only" id="option_a" name="quiz_option" type="radio"/>
+<label class="flex items-center w-full py-6 px-4 border-b border-border-quiet peer-checked:border-b-2 peer-checked:border-ink-navy peer-checked:bg-success-muted transition-all cursor-pointer" for="option_a">
+<div class="w-8 flex-shrink-0 text-body-sm font-body-sm text-on-surface-variant font-bold text-ink-navy">1</div>
+<div class="flex-grow flex items-center gap-4">
+<span class="w-8 h-8 rounded-full border border-ink-navy flex items-center justify-center text-body-sm font-body-sm text-ink-navy bg-white">A</span>
+<span class="text-quiz-option font-quiz-option text-ink-navy peer-checked:text-on-tertiary-container font-semibold">邮件；信件</span>
+</div>
+<div class="peer-checked:block ml-auto">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</label>
+</div>
+<!-- Option B -->
+<div class="relative group cursor-pointer">
+<input checked="true" class="peer sr-only" id="option_b" name="quiz_option" type="radio"/>
+<label class="flex items-center w-full py-6 px-4 border-b border-border-quiet hover:bg-paper-cool transition-all cursor-pointer peer-checked:bg-error-container peer-checked:border-b-2 peer-checked:border-error" for="option_b">
+<div class="w-8 flex-shrink-0 text-body-sm font-body-sm text-on-surface-variant group-hover:text-ink-navy font-bold text-ink-navy">2</div>
+<div class="flex-grow flex items-center gap-4">
+<span class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center text-body-sm font-body-sm text-on-surface-variant group-hover:border-ink-navy group-hover:text-ink-navy">B</span>
+<span class="text-quiz-option font-quiz-option text-ink-navy">电脑；计算机</span><div class="hidden peer-checked:block ml-auto"><span class="material-symbols-outlined text-error" data-icon="cancel" style="font-variation-settings: 'FILL' 1;">cancel</span></div>
+</div>
+</label>
+</div>
+<!-- Option C -->
+<div class="relative group cursor-pointer">
+<input class="peer sr-only" id="option_c" name="quiz_option" type="radio"/>
+<label class="flex items-center w-full py-6 px-4 border-b border-border-quiet hover:bg-paper-cool transition-all cursor-pointer" for="option_c">
+<div class="w-8 flex-shrink-0 text-body-sm font-body-sm text-on-surface-variant group-hover:text-ink-navy font-bold text-ink-navy">3</div>
+<div class="flex-grow flex items-center gap-4">
+<span class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center text-body-sm font-body-sm text-on-surface-variant group-hover:border-ink-navy group-hover:text-ink-navy">C</span>
+<span class="text-quiz-option font-quiz-option text-ink-navy">考试；检查</span>
+</div>
+</label>
+</div>
+<!-- Option D -->
+<div class="relative group cursor-pointer">
+<input class="peer sr-only" id="option_d" name="quiz_option" type="radio"/>
+<label class="flex items-center w-full py-6 px-4 border-b border-border-quiet hover:bg-paper-cool transition-all cursor-pointer" for="option_d">
+<div class="w-8 flex-shrink-0 text-body-sm font-body-sm text-on-surface-variant group-hover:text-ink-navy font-bold text-ink-navy">4</div>
+<div class="flex-grow flex items-center gap-4">
+<span class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center text-body-sm font-body-sm text-on-surface-variant group-hover:border-ink-navy group-hover:text-ink-navy">D</span>
+<span class="text-quiz-option font-quiz-option text-ink-navy">交付；送货</span>
+</div>
+</label>
+</div>
+</div>
+<div class="peer-checked:block mt-6 p-6 bg-surface-container-low border border-border-quiet rounded-lg"><p class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-widest mb-2">Note d'usage</p><p class="font-body-lg-serif italic text-ink-navy">Le terme « <span class="font-bold border-b-2 border-ink-navy cursor-pointer hover:text-progress-blue transition-colors">courrier</span> » désigne l'ensemble des lettres et paquets confiés à la poste, évoquant la diligence des messagers d'autrefois.</p></div></section>
+<!-- Action Bar (Sticky Bottom) -->
+<div class="mt-auto pt-8 pb-8 flex justify-between items-center bg-background sticky bottom-0 border-t border-border-quiet md:border-none md:static">
+<div class="text-label-caps font-label-caps text-on-surface-variant tracking-widest uppercase">
+                        1 / 12
+                    </div>
+<button class="bg-ink-navy text-on-primary px-8 py-3 text-body-sm font-body-sm font-medium hover:bg-primary-container transition-colors rounded opacity-90">
+                        Continuer
+                    </button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

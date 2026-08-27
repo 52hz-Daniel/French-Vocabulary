@@ -1,0 +1,39 @@
+{
+  "name": "tcf-vocabulary-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "vitest run && python3 -m pytest python/tests",
+    "test:web": "vitest run",
+    "test:python": "python3 -m pytest python/tests",
+    "ingest": "python3 -m python.ingest data-private/exam/listening/CO\\ 1.docx data-private/reviewed-senses.json data-private/generated/items.json",
+    "candidates": "python3 -m python.candidates 'vocabulary resources/听力文本（42套）' data-private/generated/listening-candidates.json",
+    "analyze:candidates": "python3 -m python.candidates 'vocabulary resources/听力文本（42套）' data-private/generated/listening-candidate-analysis.json --reviewed data-private/reviewed-senses.json --dictionary 'vocabulary resources/kaikki.org-dictionary-French.jsonl'",
+    "promote:listening": "python3 -m python.promote 'vocabulary resources/听力文本（42套）' 'vocabulary resources/kaikki.org-dictionary-French.jsonl' data-private/generated/items.json --reviewed data-private/reviewed-senses.json --morphalou open-data/morphalou/Morphalou3.1.sqlite",
+    "ocr:pdf": "python3 -m python.ocr_pdf 'vocabulary resources/TEF:TCF core-vocabulary.pdf' data-private/generated/core-vocabulary-ocr.json",
+    "parse:core-vocabulary": "python3 -m python.ocr_candidates data-private/generated/core-vocabulary-ocr.json data-private/generated/core-vocabulary-review.json --dictionary 'vocabulary resources/kaikki.org-dictionary-French.jsonl'",
+    "morphalou:download": "sh scripts/download-morphalou.sh",
+    "morphalou:build": "python3 -m python.morphalou build open-data/morphalou/Morphalou3.1_formatCSV.zip open-data/morphalou/Morphalou3.1.sqlite",
+    "translations:queue": "python3 -m python.translations queue data-private/generated/items.json data-private/generated/sentence-translations.json",
+    "translations:merge": "python3 -m python.translations merge data-private/generated/items.json data-private/generated/sentence-translations.json data-private/generated/items-enriched.json",
+    "enrich:production": "python3 -m python.enrich data-private/generated/items.json data-private/generated/items-enriched.json data-private/generated/enrichment-cache.json"
+  },
+  "dependencies": {
+    "@next/env": "^15.5.2",
+    "next": "^15.5.2",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.18.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "jsdom": "^26.1.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

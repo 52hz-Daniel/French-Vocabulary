@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TCF Lab - Progress</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-container": "#43976a",
+                      "tertiary": "#000b04",
+                      "outline-variant": "#c6c6cc",
+                      "on-secondary": "#ffffff",
+                      "surface-variant": "#e1e3e4",
+                      "surface-container-highest": "#e1e3e4",
+                      "tertiary-fixed-dim": "#83d8a6",
+                      "on-secondary-fixed": "#410002",
+                      "error-container": "#ffdad6",
+                      "tertiary-container": "#002614",
+                      "surface-container-low": "#f3f4f5",
+                      "on-secondary-container": "#fffbff",
+                      "primary": "#030813",
+                      "on-secondary-fixed-variant": "#93000b",
+                      "on-tertiary-fixed-variant": "#005231",
+                      "outline": "#76777c",
+                      "on-primary": "#ffffff",
+                      "progress-blue": "#3B82F6",
+                      "surface-container": "#edeeef",
+                      "on-tertiary-fixed": "#002111",
+                      "inverse-surface": "#2e3132",
+                      "tertiary-fixed": "#9ff5c1",
+                      "on-error-container": "#93000a",
+                      "surface-bright": "#f8f9fa",
+                      "success-muted": "#E6F4EA",
+                      "on-primary-fixed": "#161c27",
+                      "on-primary-container": "#828796",
+                      "primary-container": "#1a202c",
+                      "secondary-fixed": "#ffdad6",
+                      "on-primary-fixed-variant": "#414754",
+                      "primary-fixed": "#dde2f3",
+                      "on-background": "#191c1d",
+                      "on-error": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "ink-navy": "#101827",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface-tint": "#585e6c",
+                      "secondary-container": "#d9352f",
+                      "surface": "#f8f9fa",
+                      "on-tertiary": "#ffffff",
+                      "surface-dim": "#d9dadb",
+                      "inverse-primary": "#c1c6d7",
+                      "paper-cool": "#F4F7F6",
+                      "surface-container-high": "#e7e8e9",
+                      "on-surface": "#191c1d",
+                      "correction-brick": "#9E3D31",
+                      "secondary-fixed-dim": "#ffb4ab",
+                      "border-quiet": "#E5E7EB",
+                      "error": "#ba1a1a",
+                      "primary-fixed-dim": "#c1c6d7",
+                      "background": "#f8f9fa",
+                      "on-surface-variant": "#45474c",
+                      "secondary": "#b6191a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "margin-desktop": "40px",
+                      "content-column": "680px",
+                      "margin-mobile": "16px",
+                      "container-max-width": "1024px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "quiz-option": ["Public Sans", "sans-serif"],
+                      "body-sm": ["Public Sans", "sans-serif"],
+                      "headline-md": ["Public Sans", "sans-serif"],
+                      "label-caps": ["Public Sans", "sans-serif"],
+                      "display-fr": ["Libre Caslon Text", "serif"],
+                      "body-lg-serif": ["Libre Caslon Text", "serif"],
+                      "body-md": ["Public Sans", "sans-serif"],
+                      "headline-lg": ["Libre Caslon Text", "serif"]
+              },
+              "fontSize": {
+                      "quiz-option": ["18px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                      "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                      "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                      "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                      "display-fr": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                      "body-lg-serif": ["20px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                      "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                      "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Minimalist Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: #E5E7EB; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-background text-ink-navy antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="bg-surface h-full w-64 fixed left-0 top-0 border-r border-quiet flex flex-col py-margin-desktop z-20 hidden md:flex">
+<div class="px-6 mb-8 flex flex-col gap-2">
+<div class="h-10 w-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-ink-navy">person</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-ink-navy">TCF Lab</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Study Session</p>
+</div>
+</div>
+<div class="px-6 mb-8">
+<button class="w-full bg-ink-navy text-on-primary py-2 px-4 rounded font-quiz-option text-quiz-option flex items-center justify-center gap-2 hover:bg-primary transition-colors">
+<span class="material-symbols-outlined" data-weight="fill">play_arrow</span>
+                Quick Review
+            </button>
+</div>
+<ul class="flex flex-col gap-1 px-4 flex-1">
+<!-- Active Tab: Mapping 'Progress' intent to 'Today' as the dashboard view per semantic mapping rules -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-ink-navy font-bold border-r-2 border-ink-navy hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-weight="fill">dashboard</span>
+<span class="font-quiz-option text-quiz-option">Today</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-quiz-option text-quiz-option">Learn</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">quiz</span>
+<span class="font-quiz-option text-quiz-option">Review</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span class="font-quiz-option text-quiz-option">Library</span>
+</a>
+</li>
+</ul>
+<div class="px-4 mt-auto">
+<ul class="flex flex-col gap-1">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-quiz-option text-quiz-option">Settings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-quiz-option text-quiz-option">Support</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-64 h-full relative">
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-background flex justify-between items-center w-full h-16 px-margin-desktop border-b border-quiet sticky top-0 z-10 hidden md:flex">
+<h1 class="font-display-fr text-headline-lg text-ink-navy">TCF Lab</h1>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-ink-navy transition-opacity duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-ink-navy transition-opacity duration-200">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content -->
+<main class="flex-1 overflow-y-auto w-full">
+<div class="max-w-[680px] mx-auto py-margin-desktop px-gutter">
+<!-- Page Title -->
+<div class="mb-12 text-center md:text-left">
+<h1 class="font-display-fr text-display-fr text-ink-navy mb-2">Progression</h1>
+<p class="font-body-lg-serif text-body-lg-serif text-on-surface-variant">Your journey towards NCLC 7 mastery.</p>
+</div>
+<!-- Section 1: Overall Progress -->
+<section class="mb-12">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-4">Target Summary</h2>
+<div class="border-t border-quiet pt-6 flex flex-col md:flex-row gap-8 justify-between items-baseline">
+<div class="flex-1">
+<span class="block font-headline-lg text-headline-lg text-ink-navy">NCLC 5</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Current Estimated Level</span>
+</div>
+<div class="flex-1 border-l md:border-t-0 md:border-l border-quiet pl-0 md:pl-8 pt-4 md:pt-0">
+<span class="block font-headline-lg text-headline-lg text-ink-navy">1,240</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Vocabulary Active</span>
+</div>
+<div class="flex-1 border-l md:border-t-0 md:border-l border-quiet pl-0 md:pl-8 pt-4 md:pt-0">
+<span class="block font-headline-lg text-headline-lg text-ink-navy">B2</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant mt-1">Grammar Readiness</span>
+</div>
+</div>
+<div class="mt-8">
+<div class="w-full bg-surface-container h-1 rounded-full overflow-hidden">
+<div class="bg-ink-navy h-full w-[65%]"></div>
+</div>
+<div class="flex justify-between mt-2 font-label-caps text-label-caps text-on-surface-variant">
+<span>CURRENT: B1/B2</span>
+<span>TARGET: C1 (NCLC 7)</span>
+</div>
+</div>
+</section>
+<!-- Section 2: Mastery Heatmap -->
+<section class="mb-12">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-4">Consistency (Last 30 Days)</h2>
+<div class="border-t border-quiet pt-6">
+<div class="flex flex-wrap gap-2">
+<!-- Simulating 30 days of data -->
+<script>
+                                for(let i=0; i<30; i++) {
+                                    const intensity = Math.random();
+                                    let bgClass = 'bg-surface-container';
+                                    if(intensity > 0.8) bgClass = 'bg-ink-navy';
+                                    else if(intensity > 0.5) bgClass = 'bg-ink-navy/60';
+                                    else if(intensity > 0.2) bgClass = 'bg-ink-navy/30';
+                                    
+                                    document.write(`<div class="w-4 h-4 rounded-sm ${bgClass}" title="Activity day ${30-i}"></div>`);
+                                }
+                            </script>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-4">24 study days logged this month. Excellent rhythm.</p>
+</div>
+</section>
+<!-- Section 3: Retention Stats -->
+<section class="mb-12">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-4">Retention Quality</h2>
+<div class="border-t border-quiet pt-6 flex gap-8">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-3 h-3 bg-on-tertiary-container rounded-sm"></div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Correct First Try</span>
+</div>
+<span class="font-headline-md text-headline-md text-ink-navy">78%</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-3 h-3 bg-surface-tint rounded-sm"></div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Required Review</span>
+</div>
+<span class="font-headline-md text-headline-md text-ink-navy">22%</span>
+</div>
+</div>
+</section>
+<!-- Section 4: Difficult Words List -->
+<section class="mb-12">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-4">Priority Review</h2>
+<div class="border-t border-quiet">
+<!-- Word Row 1 -->
+<div class="flex justify-between items-center py-4 border-b border-quiet hover:bg-paper-cool transition-colors group cursor-pointer">
+<div>
+<span class="font-body-lg-serif text-body-lg-serif text-ink-navy block">Débrouillardise</span>
+<span class="font-body-sm text-body-sm text-correction-brick mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">history</span> Missed 3 times
+                                </span>
+</div>
+<button class="w-8 h-8 rounded-full border border-quiet flex items-center justify-center text-ink-navy group-hover:border-ink-navy transition-colors">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<!-- Word Row 2 -->
+<div class="flex justify-between items-center py-4 border-b border-quiet hover:bg-paper-cool transition-colors group cursor-pointer">
+<div>
+<span class="font-body-lg-serif text-body-lg-serif text-ink-navy block">Cependant</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">history</span> Slow recall (4.2s)
+                                </span>
+</div>
+<button class="w-8 h-8 rounded-full border border-quiet flex items-center justify-center text-ink-navy group-hover:border-ink-navy transition-colors">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<!-- Word Row 3 -->
+<div class="flex justify-between items-center py-4 border-b border-quiet hover:bg-paper-cool transition-colors group cursor-pointer">
+<div>
+<span class="font-body-lg-serif text-body-lg-serif text-ink-navy block">Subjonctif Passé</span>
+<span class="font-body-sm text-body-sm text-correction-brick mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">history</span> Missed in context
+                                </span>
+</div>
+<button class="w-8 h-8 rounded-full border border-quiet flex items-center justify-center text-ink-navy group-hover:border-ink-navy transition-colors">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Section 5: Words Learned Bar Chart (CSS based) -->
+<section class="mb-24">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-4">Volume Acquired (Monthly)</h2>
+<div class="border-t border-quiet pt-8 flex items-end gap-6 h-48">
+<!-- Week 1 -->
+<div class="flex-1 flex flex-col items-center justify-end h-full gap-2 group">
+<div class="w-full bg-surface-container relative h-full flex items-end">
+<div class="w-full bg-ink-navy/40 group-hover:bg-ink-navy transition-colors" style="height: 40%;"></div>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">W1</span>
+</div>
+<!-- Week 2 -->
+<div class="flex-1 flex flex-col items-center justify-end h-full gap-2 group">
+<div class="w-full bg-surface-container relative h-full flex items-end">
+<div class="w-full bg-ink-navy/60 group-hover:bg-ink-navy transition-colors" style="height: 65%;"></div>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">W2</span>
+</div>
+<!-- Week 3 -->
+<div class="flex-1 flex flex-col items-center justify-end h-full gap-2 group">
+<div class="w-full bg-surface-container relative h-full flex items-end">
+<div class="w-full bg-ink-navy/80 group-hover:bg-ink-navy transition-colors" style="height: 85%;"></div>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">W3</span>
+</div>
+<!-- Week 4 (Current) -->
+<div class="flex-1 flex flex-col items-center justify-end h-full gap-2 group">
+<div class="w-full bg-surface-container relative h-full flex items-end">
+<div class="w-full bg-ink-navy transition-colors" style="height: 50%;"></div>
+</div>
+<span class="font-label-caps text-label-caps text-ink-navy font-bold">W4</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

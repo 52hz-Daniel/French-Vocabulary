@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TCF Lab - Audio Quiz</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#030813",
+                      "on-surface-variant": "#45474c",
+                      "primary-fixed": "#dde2f3",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-fixed": "#002111",
+                      "surface-variant": "#e1e3e4",
+                      "primary-fixed-dim": "#c1c6d7",
+                      "secondary-fixed": "#ffdad6",
+                      "inverse-primary": "#c1c6d7",
+                      "secondary-container": "#d9352f",
+                      "tertiary": "#000b04",
+                      "surface-tint": "#585e6c",
+                      "tertiary-container": "#002614",
+                      "ink-navy": "#101827",
+                      "on-primary-fixed-variant": "#414754",
+                      "inverse-surface": "#2e3132",
+                      "surface-container-high": "#e7e8e9",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed-dim": "#83d8a6",
+                      "tertiary-fixed": "#9ff5c1",
+                      "on-primary-container": "#828796",
+                      "secondary": "#b6191a",
+                      "progress-blue": "#3B82F6",
+                      "error": "#ba1a1a",
+                      "success-muted": "#E6F4EA",
+                      "on-secondary-container": "#fffbff",
+                      "on-background": "#191c1d",
+                      "surface-bright": "#f8f9fa",
+                      "surface-dim": "#d9dadb",
+                      "on-secondary-fixed": "#410002",
+                      "outline": "#76777c",
+                      "background": "#f8f9fa",
+                      "outline-variant": "#c6c6cc",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-container": "#43976a",
+                      "surface-container": "#edeeef",
+                      "surface": "#f8f9fa",
+                      "on-secondary-fixed-variant": "#93000b",
+                      "on-error-container": "#93000a",
+                      "on-surface": "#191c1d",
+                      "correction-brick": "#9E3D31",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-primary": "#ffffff",
+                      "border-quiet": "#E5E7EB",
+                      "on-tertiary-fixed-variant": "#005231",
+                      "on-error": "#ffffff",
+                      "primary-container": "#1a202c",
+                      "on-primary-fixed": "#161c27",
+                      "paper-cool": "#F4F7F6",
+                      "inverse-on-surface": "#f0f1f2",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed-dim": "#ffb4ab",
+                      "surface-container-low": "#f3f4f5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "container-max-width": "1024px",
+                      "margin-mobile": "16px",
+                      "content-column": "680px",
+                      "margin-desktop": "40px",
+                      "gutter": "24px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "quiz-option": [
+                              "Public Sans"
+                      ],
+                      "label-caps": [
+                              "Public Sans"
+                      ],
+                      "body-sm": [
+                              "Public Sans"
+                      ],
+                      "headline-md": [
+                              "Public Sans"
+                      ],
+                      "body-lg-serif": [
+                              "Libre Caslon Text"
+                      ],
+                      "headline-lg": [
+                              "Libre Caslon Text"
+                      ],
+                      "display-fr": [
+                              "Libre Caslon Text"
+                      ],
+                      "body-md": [
+                              "Public Sans"
+                      ]
+              },
+              "fontSize": {
+                      "quiz-option": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg-serif": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-fr": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        /* Interactive pulse animation for the play button when audio is active */
+        @keyframes subtle-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 24, 39, 0.1); }
+            70% { box-shadow: 0 0 0 20px rgba(16, 24, 39, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 24, 39, 0); }
+        }
+        .playing-audio .play-ring {
+            animation: subtle-pulse 1.5s infinite;
+            border-color: #101827 !important;
+            background-color: #F4F7F6 !important;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-low text-on-surface min-h-screen flex flex-col items-center justify-center font-body-md antialiased selection:bg-primary-fixed selection:text-ink-navy">
+<!-- 
+      Suppressed Global Navigation (SideNavBar & TopAppBar):
+      Following the Semantic Shell Mandate, this is a task-focused quiz screen. 
+      The global navigation is hidden to prioritize the study canvas and minimize distractions.
+    -->
+<!-- Main Instrument Canvas -->
+<main class="w-full max-w-content-column bg-surface md:border-x border-quiet min-h-screen md:min-h-[800px] flex flex-col relative shadow-sm">
+<!-- Header: Minimal context and exit -->
+<header class="flex justify-between items-center px-6 py-6 border-b border-quiet">
+<button aria-label="Quitter l'exercice" class="text-on-surface-variant hover:text-ink-navy transition-colors focus:outline-none focus:ring-2 focus:ring-ink-navy rounded">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+<div class="flex items-center gap-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Question 12 / 40</span>
+<!-- Progress visual -->
+<div class="w-16 h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="w-[30%] h-full bg-ink-navy"></div>
+</div>
+</div>
+<div class="w-6"></div> <!-- Spacer for perfect centering -->
+</header>
+<!-- Content Area -->
+<div class="flex-grow flex flex-col px-6 py-12 md:px-12">
+<!-- Section Header -->
+<div class="mb-12">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-4">Compréhension Orale</h2>
+<div class="h-px w-full bg-quiet"></div>
+</div>
+<!-- Primary Interaction: Play Word -->
+<div class="flex-grow flex flex-col items-center justify-center text-center mb-12">
+<button class="group flex flex-col items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-ink-navy rounded-xl p-4 transition-all" id="main-audio-btn">
+<!-- Play Ring -->
+<div class="play-ring w-24 h-24 rounded-full border border-quiet flex items-center justify-center bg-surface group-hover:bg-paper-cool group-hover:border-ink-navy transition-all duration-300 mb-6">
+<span class="material-symbols-outlined text-4xl text-ink-navy" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<!-- Literary Instruction -->
+<h1 class="font-display-fr text-display-fr text-ink-navy mb-4">Écouter le mot</h1>
+<!-- Keyboard Shortcut -->
+<div class="flex items-center gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Raccourci clavier :</span>
+<kbd class="font-label-caps text-label-caps text-ink-navy border border-outline-variant rounded px-2 py-1 bg-surface-bright shadow-[0_1px_0_rgba(0,0,0,0.1)]">Espace</kbd>
+</div>
+</button>
+</div>
+<!-- Hint Section (Secondary Audio) -->
+<div class="mb-10 w-full">
+<button class="w-full group flex items-center justify-center gap-3 py-4 border-y border-dashed border-outline-variant hover:border-ink-navy hover:bg-paper-cool transition-all text-on-surface-variant hover:text-ink-navy focus:outline-none focus:ring-2 focus:ring-inset focus:ring-ink-navy" id="hint-audio-btn">
+<span class="material-symbols-outlined" data-icon="volume_up">volume_up</span>
+<span class="font-body-md text-body-md">Indice : Écouter la phrase d'exemple</span>
+</button>
+</div>
+<!-- Options Section -->
+<div class="w-full flex flex-col mt-auto" id="options-container">
+<div class="h-px w-full bg-quiet mb-2"></div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-4">Sélectionnez la traduction correcte</h3>
+<!-- Option Rows (L'Instrument style) -->
+<div class="flex flex-col border-t border-quiet">
+<!-- Option 1 -->
+<button class="quiz-option-btn w-full text-left py-4 px-4 border-b border-quiet hover:bg-paper-cool transition-colors flex items-center gap-4 group focus:outline-none focus-visible:bg-paper-cool" data-index="1">
+<span class="font-label-caps text-label-caps text-outline w-6 text-center group-hover:text-ink-navy transition-colors">1</span>
+<span class="font-quiz-option text-quiz-option text-ink-navy flex-grow">妥协; 折衷 (Compromettre)</span>
+<span class="material-symbols-outlined text-transparent group-hover:text-ink-navy opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Option 2 -->
+<button class="quiz-option-btn w-full text-left py-4 px-4 border-b border-quiet hover:bg-paper-cool transition-colors flex items-center gap-4 group focus:outline-none focus-visible:bg-paper-cool" data-index="2">
+<span class="font-label-caps text-label-caps text-outline w-6 text-center group-hover:text-ink-navy transition-colors">2</span>
+<span class="font-quiz-option text-quiz-option text-ink-navy flex-grow">不可避免的 (Inévitable)</span>
+<span class="material-symbols-outlined text-transparent group-hover:text-ink-navy opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Option 3 -->
+<button class="quiz-option-btn w-full text-left py-4 px-4 border-b border-quiet hover:bg-paper-cool transition-colors flex items-center gap-4 group focus:outline-none focus-visible:bg-paper-cool" data-index="3">
+<span class="font-label-caps text-label-caps text-outline w-6 text-center group-hover:text-ink-navy transition-colors">3</span>
+<span class="font-quiz-option text-quiz-option text-ink-navy flex-grow">含糊的; 模棱两可的 (Ambigu)</span>
+<span class="material-symbols-outlined text-transparent group-hover:text-ink-navy opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Option 4 -->
+<button class="quiz-option-btn w-full text-left py-4 px-4 border-b border-quiet hover:bg-paper-cool transition-colors flex items-center gap-4 group focus:outline-none focus-visible:bg-paper-cool" data-index="4">
+<span class="font-label-caps text-label-caps text-outline w-6 text-center group-hover:text-ink-navy transition-colors">4</span>
+<span class="font-quiz-option text-quiz-option text-ink-navy flex-grow">无处不在的 (Omniprésent)</span>
+<span class="material-symbols-outlined text-transparent group-hover:text-ink-navy opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions and UI State Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainAudioBtn = document.getElementById('main-audio-btn');
+            const hintAudioBtn = document.getElementById('hint-audio-btn');
+            const optionBtns = document.querySelectorAll('.quiz-option-btn');
+            
+            // Simulate Audio Playing State
+            function playAudio(buttonElement, duration = 1500) {
+                if (buttonElement.classList.contains('playing-audio')) return;
+                
+                buttonElement.classList.add('playing-audio');
+                const icon = buttonElement.querySelector('.material-symbols-outlined');
+                const originalIcon = icon.getAttribute('data-icon');
+                
+                // Swap icon briefly to show activity
+                if(originalIcon === 'play_arrow') {
+                    icon.textContent = 'graphic_eq';
+                    icon.setAttribute('data-icon', 'graphic_eq');
+                }
+                
+                setTimeout(() => {
+                    buttonElement.classList.remove('playing-audio');
+                    icon.textContent = originalIcon;
+                    icon.setAttribute('data-icon', originalIcon);
+                }, duration);
+            }
+
+            // Event Listeners for Audio Buttons
+            mainAudioBtn.addEventListener('click', () => playAudio(mainAudioBtn, 1200));
+            hintAudioBtn.addEventListener('click', () => playAudio(hintAudioBtn, 2500));
+
+            // Global Keyboard Shortcut (Spacebar)
+            document.addEventListener('keydown', (e) => {
+                // Prevent scrolling if space is pressed, unless focused on an input
+                if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                    e.preventDefault(); 
+                    playAudio(mainAudioBtn, 1200);
+                }
+                
+                // Number shortcuts for options
+                if (['1', '2', '3', '4'].includes(e.key)) {
+                    const btn = document.querySelector(`.quiz-option-btn[data-index="${e.key}"]`);
+                    if (btn) selectOption(btn);
+                }
+            });
+
+            // Handle Option Selection (L'Instrument active state)
+            function selectOption(selectedBtn) {
+                // Reset all
+                optionBtns.forEach(btn => {
+                    btn.classList.remove('border-l-2', 'border-l-ink-navy', 'bg-paper-cool');
+                    btn.classList.add('border-l-0');
+                    // Reset icon
+                    const icon = btn.querySelector('.material-symbols-outlined');
+                    icon.textContent = 'arrow_forward';
+                    icon.classList.remove('opacity-100', 'text-ink-navy', 'translate-x-0');
+                    icon.classList.add('opacity-0', 'translate-x-2');
+                });
+
+                // Set active (Wait, the design system says: "Selected State: Border thickens to 2px ink-navy." 
+                // Since these are rows, a left border or full border box is appropriate. Let's use left border + background for clarity without breaking layout.)
+                selectedBtn.classList.remove('border-l-0');
+                selectedBtn.classList.add('border-l-4', 'border-l-ink-navy', 'bg-paper-cool');
+                
+                // Keep icon visible on selected
+                const icon = selectedBtn.querySelector('.material-symbols-outlined');
+                icon.textContent = 'check'; // Change to checkmark for selection visual feedback
+                icon.setAttribute('data-icon', 'check');
+                icon.classList.remove('opacity-0', 'translate-x-2');
+                icon.classList.add('opacity-100', 'text-ink-navy', 'translate-x-0');
+                
+                // In a real app, this would trigger validation/next step after a delay
+            }
+
+            optionBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    selectOption(this);
+                });
+            });
+        });
+    </script>
+</body></html>

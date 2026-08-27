@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TCF Lab - Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#93000b",
+                      "on-primary-container": "#828796",
+                      "surface-bright": "#f8f9fa",
+                      "on-primary-fixed-variant": "#414754",
+                      "on-error": "#ffffff",
+                      "primary-container": "#1a202c",
+                      "on-secondary-container": "#fffbff",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-tertiary-fixed-variant": "#005231",
+                      "on-tertiary-container": "#43976a",
+                      "tertiary-fixed-dim": "#83d8a6",
+                      "secondary-container": "#d9352f",
+                      "tertiary-fixed": "#9ff5c1",
+                      "inverse-on-surface": "#f0f1f2",
+                      "outline": "#76777c",
+                      "on-primary-fixed": "#161c27",
+                      "error": "#ba1a1a",
+                      "border-quiet": "#E5E7EB",
+                      "secondary-fixed-dim": "#ffb4ab",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c6c6cc",
+                      "ink-navy": "#101827",
+                      "progress-blue": "#3B82F6",
+                      "on-surface": "#191c1d",
+                      "surface-dim": "#d9dadb",
+                      "primary": "#030813",
+                      "surface-tint": "#585e6c",
+                      "surface-container-high": "#e7e8e9",
+                      "tertiary": "#000b04",
+                      "primary-fixed": "#dde2f3",
+                      "surface-container": "#edeeef",
+                      "secondary-fixed": "#ffdad6",
+                      "surface": "#f8f9fa",
+                      "surface-container-low": "#f3f4f5",
+                      "surface-container-lowest": "#ffffff",
+                      "correction-brick": "#9E3D31",
+                      "error-container": "#ffdad6",
+                      "success-muted": "#E6F4EA",
+                      "primary-fixed-dim": "#c1c6d7",
+                      "on-tertiary-fixed": "#002111",
+                      "on-background": "#191c1d",
+                      "inverse-surface": "#2e3132",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed": "#410002",
+                      "paper-cool": "#F4F7F6",
+                      "on-primary": "#ffffff",
+                      "surface-variant": "#e1e3e4",
+                      "tertiary-container": "#002614",
+                      "on-error-container": "#93000a",
+                      "on-surface-variant": "#45474c",
+                      "inverse-primary": "#c1c6d7",
+                      "background": "#f8f9fa",
+                      "secondary": "#b6191a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "unit": "4px",
+                      "margin-mobile": "16px",
+                      "container-max-width": "1024px",
+                      "margin-desktop": "40px",
+                      "content-column": "680px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "Public Sans"
+                      ],
+                      "display-fr": [
+                              "Libre Caslon Text"
+                      ],
+                      "headline-lg": [
+                              "Libre Caslon Text"
+                      ],
+                      "body-md": [
+                              "Public Sans"
+                      ],
+                      "body-sm": [
+                              "Public Sans"
+                      ],
+                      "label-caps": [
+                              "Public Sans"
+                      ],
+                      "quiz-option": [
+                              "Public Sans"
+                      ],
+                      "body-lg-serif": [
+                              "Libre Caslon Text"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-fr": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "quiz-option": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg-serif": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 1;
+        }
+      </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased min-h-screen">
+<!-- TopAppBar (Mobile Only) -->
+<header class="md:hidden flex justify-between items-center h-16 px-gutter border-b border-quiet bg-surface top-0 sticky z-50">
+<div class="text-headline-md font-headline-md font-bold text-ink-navy">TCF Lab</div>
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:text-ink-navy"><span class="material-symbols-outlined" data-icon="search">search</span></button>
+<button class="text-on-surface-variant hover:text-ink-navy"><span class="material-symbols-outlined" data-icon="settings">settings</span></button>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-quiet py-gutter px-4 z-40">
+<div class="mb-12 px-2">
+<h1 class="text-headline-md font-headline-md font-bold text-ink-navy">TCF Lab</h1>
+<p class="text-label-caps font-label-caps text-on-surface-variant mt-1">Study Instrument</p>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="calendar_today">calendar_today</span>
+<span class="text-label-caps font-label-caps">Today</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="school">school</span>
+<span class="text-label-caps font-label-caps">Learn</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="import_contacts">import_contacts</span>
+<span class="text-label-caps font-label-caps">Review</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-ink-navy font-bold border-r-2 border-ink-navy opacity-90 transition-opacity bg-paper-cool" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="library_books">library_books</span>
+<span class="text-label-caps font-label-caps">Library</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="insights">insights</span>
+<span class="text-label-caps font-label-caps">Progress</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-quiet flex items-center gap-3 px-2">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">person</span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant">Profile</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:ml-64 p-margin-mobile md:p-margin-desktop min-h-screen">
+<div class="max-w-content-column mx-auto">
+<header class="mb-8">
+<h2 class="text-headline-lg font-headline-lg text-ink-navy mb-6">Library</h2>
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div class="flex gap-4">
+<button class="text-label-caps font-label-caps text-ink-navy border-b-2 border-ink-navy pb-1">Tous</button>
+<button class="text-label-caps font-label-caps text-on-surface-variant hover:text-ink-navy transition-colors pb-1 border-b-2 border-transparent">À réviser</button>
+<button class="text-label-caps font-label-caps text-on-surface-variant hover:text-ink-navy transition-colors pb-1 border-b-2 border-transparent">Difficiles</button>
+</div>
+<div class="relative w-full sm:w-auto">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full sm:w-64 pl-10 pr-4 py-2 bg-transparent border border-ink-navy rounded-DEFAULT text-body-sm font-body-sm text-ink-navy placeholder:text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-ink-navy transition-all" placeholder="Rechercher un mot..." type="text"/>
+</div>
+</div>
+</header>
+<div class="w-full">
+<!-- Table Header -->
+<div class="grid grid-cols-12 gap-4 py-3 border-b border-ink-navy text-label-caps font-label-caps text-on-surface-variant">
+<div class="col-span-4 sm:col-span-3">Mot</div>
+<div class="col-span-4 sm:col-span-5">Sens</div>
+<div class="col-span-4 sm:col-span-2 text-center">Statut</div>
+<div class="hidden sm:block sm:col-span-2 text-right">Révision</div>
+</div>
+<!-- Table Rows -->
+<div class="flex flex-col">
+<!-- Row 1: Appris -->
+<div class="grid grid-cols-12 gap-4 py-4 border-b border-quiet items-center hover:bg-paper-cool transition-colors duration-200">
+<div class="col-span-4 sm:col-span-3">
+<span class="text-body-lg-serif font-body-lg-serif text-ink-navy">Éphémère</span>
+</div>
+<div class="col-span-4 sm:col-span-5 text-body-sm font-body-sm text-on-surface-variant">
+                            短暂的 (qui ne dure que très peu de temps)
+                        </div>
+<div class="col-span-4 sm:col-span-2 flex justify-center">
+<span class="px-2 py-1 bg-success-muted text-on-tertiary-container text-label-caps font-label-caps rounded-DEFAULT inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Appris
+                            </span>
+</div>
+<div class="hidden sm:block sm:col-span-2 text-right text-body-sm font-body-sm text-on-surface-variant">
+                            12 Oct
+                        </div>
+</div>
+<!-- Row 2: Difficile -->
+<div class="grid grid-cols-12 gap-4 py-4 border-b border-quiet items-center hover:bg-paper-cool transition-colors duration-200">
+<div class="col-span-4 sm:col-span-3">
+<span class="text-body-lg-serif font-body-lg-serif text-ink-navy">Velléité</span>
+</div>
+<div class="col-span-4 sm:col-span-5 text-body-sm font-body-sm text-on-surface-variant">
+                            微弱的意愿 (volonté faible de faire qqch)
+                        </div>
+<div class="col-span-4 sm:col-span-2 flex justify-center">
+<span class="px-2 py-1 bg-error-container text-correction-brick text-label-caps font-label-caps rounded-DEFAULT inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> Difficile
+                            </span>
+</div>
+<div class="hidden sm:block sm:col-span-2 text-right text-body-sm font-body-sm text-on-surface-variant">
+                            Aujourd'hui
+                        </div>
+</div>
+<!-- Row 3: En cours -->
+<div class="grid grid-cols-12 gap-4 py-4 border-b border-quiet items-center hover:bg-paper-cool transition-colors duration-200">
+<div class="col-span-4 sm:col-span-3">
+<span class="text-body-lg-serif font-body-lg-serif text-ink-navy">Chagrin</span>
+</div>
+<div class="col-span-4 sm:col-span-5 text-body-sm font-body-sm text-on-surface-variant">
+                            悲伤 (déplaisir profond, affliction)
+                        </div>
+<div class="col-span-4 sm:col-span-2 flex justify-center">
+<span class="px-2 py-1 bg-surface-container-high text-on-surface-variant text-label-caps font-label-caps rounded-DEFAULT inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">sync</span> En cours
+                            </span>
+</div>
+<div class="hidden sm:block sm:col-span-2 text-right text-body-sm font-body-sm text-on-surface-variant">
+                            Demain
+                        </div>
+</div>
+<!-- Row 4: Nouveau -->
+<div class="grid grid-cols-12 gap-4 py-4 border-b border-quiet items-center hover:bg-paper-cool transition-colors duration-200">
+<div class="col-span-4 sm:col-span-3">
+<span class="text-body-lg-serif font-body-lg-serif text-ink-navy">Flâner</span>
+</div>
+<div class="col-span-4 sm:col-span-5 text-body-sm font-body-sm text-on-surface-variant">
+                            闲逛 (se promener sans but précis)
+                        </div>
+<div class="col-span-4 sm:col-span-2 flex justify-center">
+<span class="px-2 py-1 bg-surface-container text-ink-navy text-label-caps font-label-caps rounded-DEFAULT inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">fiber_new</span> Nouveau
+                            </span>
+</div>
+<div class="hidden sm:block sm:col-span-2 text-right text-body-sm font-body-sm text-on-surface-variant">
+                            -
+                        </div>
+</div>
+<!-- Row 5: Appris -->
+<div class="grid grid-cols-12 gap-4 py-4 border-b border-quiet items-center hover:bg-paper-cool transition-colors duration-200">
+<div class="col-span-4 sm:col-span-3">
+<span class="text-body-lg-serif font-body-lg-serif text-ink-navy">Mélancolie</span>
+</div>
+<div class="col-span-4 sm:col-span-5 text-body-sm font-body-sm text-on-surface-variant">
+                            忧郁 (état de tristesse vague)
+                        </div>
+<div class="col-span-4 sm:col-span-2 flex justify-center">
+<span class="px-2 py-1 bg-success-muted text-on-tertiary-container text-label-caps font-label-caps rounded-DEFAULT inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Appris
+                            </span>
+</div>
+<div class="hidden sm:block sm:col-span-2 text-right text-body-sm font-body-sm text-on-surface-variant">
+                            28 Oct
+                        </div>
+</div>
+</div>
+</div>
+<!-- Pagination/Footer -->
+<div class="mt-8 flex justify-center">
+<button class="px-4 py-2 border border-quiet rounded-DEFAULT text-body-sm font-body-sm text-ink-navy hover:bg-paper-cool transition-colors">
+                    Charger plus
+                </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden flex justify-around items-center h-16 bg-surface border-t border-quiet fixed bottom-0 w-full z-50">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-ink-navy transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="calendar_today">calendar_today</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-ink-navy transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="school">school</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-ink-navy transition-colors relative" href="#">
+<div class="absolute -top-3 w-8 h-1 bg-ink-navy rounded-full"></div>
+<span class="material-symbols-outlined text-[24px]" data-icon="library_books">library_books</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-ink-navy transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="insights">insights</span>
+</a>
+</nav>
+</body></html>

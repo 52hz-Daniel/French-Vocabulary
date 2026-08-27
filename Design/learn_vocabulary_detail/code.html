@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TCF Lab - Vocabulary Learn</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#93000b",
+                      "on-primary-container": "#828796",
+                      "surface-bright": "#f8f9fa",
+                      "on-primary-fixed-variant": "#414754",
+                      "on-error": "#ffffff",
+                      "primary-container": "#1a202c",
+                      "on-secondary-container": "#fffbff",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-tertiary-fixed-variant": "#005231",
+                      "on-tertiary-container": "#43976a",
+                      "tertiary-fixed-dim": "#83d8a6",
+                      "secondary-container": "#d9352f",
+                      "tertiary-fixed": "#9ff5c1",
+                      "inverse-on-surface": "#f0f1f2",
+                      "outline": "#76777c",
+                      "on-primary-fixed": "#161c27",
+                      "error": "#ba1a1a",
+                      "border-quiet": "#E5E7EB",
+                      "secondary-fixed-dim": "#ffb4ab",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c6c6cc",
+                      "ink-navy": "#101827",
+                      "progress-blue": "#3B82F6",
+                      "on-surface": "#191c1d",
+                      "surface-dim": "#d9dadb",
+                      "primary": "#030813",
+                      "surface-tint": "#585e6c",
+                      "surface-container-high": "#e7e8e9",
+                      "tertiary": "#000b04",
+                      "primary-fixed": "#dde2f3",
+                      "surface-container": "#edeeef",
+                      "secondary-fixed": "#ffdad6",
+                      "surface": "#f8f9fa",
+                      "surface-container-low": "#f3f4f5",
+                      "surface-container-lowest": "#ffffff",
+                      "correction-brick": "#9E3D31",
+                      "error-container": "#ffdad6",
+                      "success-muted": "#E6F4EA",
+                      "primary-fixed-dim": "#c1c6d7",
+                      "on-tertiary-fixed": "#002111",
+                      "on-background": "#191c1d",
+                      "inverse-surface": "#2e3132",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed": "#410002",
+                      "paper-cool": "#F4F7F6",
+                      "on-primary": "#ffffff",
+                      "surface-variant": "#e1e3e4",
+                      "tertiary-container": "#002614",
+                      "on-error-container": "#93000a",
+                      "on-surface-variant": "#45474c",
+                      "inverse-primary": "#c1c6d7",
+                      "background": "#f8f9fa",
+                      "secondary": "#b6191a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "unit": "4px",
+                      "margin-mobile": "16px",
+                      "container-max-width": "1024px",
+                      "margin-desktop": "40px",
+                      "content-column": "680px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "Public Sans"
+                      ],
+                      "display-fr": [
+                              "Libre Caslon Text"
+                      ],
+                      "headline-lg": [
+                              "Libre Caslon Text"
+                      ],
+                      "body-md": [
+                              "Public Sans"
+                      ],
+                      "body-sm": [
+                              "Public Sans"
+                      ],
+                      "label-caps": [
+                              "Public Sans"
+                      ],
+                      "quiz-option": [
+                              "Public Sans"
+                      ],
+                      "body-lg-serif": [
+                              "Libre Caslon Text"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-fr": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "quiz-option": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg-serif": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-quiet py-gutter px-4 z-50">
+<div class="mb-8 px-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md text-ink-navy">TCF Lab</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Study Instrument</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-ink-navy hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-label-caps font-label-caps">Today</span>
+</a>
+<!-- Active -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-ink-navy font-bold border-r-2 border-ink-navy bg-paper-cool opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="text-label-caps font-label-caps">Learn</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-ink-navy hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">import_contacts</span>
+<span class="text-label-caps font-label-caps">Review</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-ink-navy hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span class="text-label-caps font-label-caps">Library</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-ink-navy hover:bg-paper-cool transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="text-label-caps font-label-caps">Progress</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow md:ml-64 w-full max-w-content-column mx-auto px-margin-mobile md:px-margin-desktop py-12 lg:py-24 flex flex-col justify-between min-h-screen">
+<!-- Top Navigation / Progress Indicator (Optional but good for context) -->
+<header class="w-full flex justify-between items-center mb-12 border-b border-quiet pb-4">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider">Vocabulary • Unit 4</span>
+<span class="text-body-sm font-body-sm text-outline">Word 12 of 20</span>
+</header>
+<!-- Vocabulary Section -->
+<article class="flex-grow flex flex-col justify-center gap-8">
+<header class="text-center md:text-left flex flex-col gap-4">
+<h1 class="text-display-fr font-display-fr text-ink-navy">Candidature</h1>
+<p class="text-headline-md font-headline-md text-on-surface-variant">n.f. 求职申请；候选资格</p>
+</header>
+<div class="h-px w-full bg-border-quiet my-4"></div>
+<!-- Audio Controls -->
+<section class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+<button class="flex items-center gap-2 px-4 py-2 border border-quiet rounded-md text-ink-navy hover:bg-paper-cool transition-colors group">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">volume_up</span>
+<span class="text-body-sm font-body-sm font-medium">Play Word</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 border border-quiet rounded-md text-ink-navy hover:bg-paper-cool transition-colors group">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">record_voice_over</span>
+<span class="text-body-sm font-body-sm font-medium">Play Sentence</span>
+</button>
+</section>
+<!-- Contextual Example -->
+<section class="mt-4 flex flex-col gap-4 border-l-2 border-border-quiet pl-6 py-2">
+<p class="text-body-lg-serif font-body-lg-serif text-ink-navy italic">
+                    "Elle a déposé sa candidature pour le poste de directrice."
+                </p>
+<p class="text-body-md font-body-md text-on-surface-variant">
+                    她提交了主管职位的求职申请。
+                </p>
+</section>
+<!-- Metadata Source -->
+<footer class="mt-8">
+<p class="text-label-caps font-label-caps text-outline uppercase tracking-wide">
+                    Source: TCF Listening CO 1 - Question 1-17
+                 </p>
+</footer>
+</article>
+<!-- Action Area -->
+<nav class="mt-16 pt-8 border-t border-quiet flex flex-col-reverse sm:flex-row justify-between items-center gap-4 w-full">
+<button class="w-full sm:w-auto px-6 py-3 border border-quiet rounded-md text-ink-navy font-body-md font-medium hover:bg-paper-cool transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">bookmark_add</span>
+                 Ajouter aux favoris
+             </button>
+<button class="w-full sm:w-auto px-8 py-3 bg-ink-navy text-surface-container-lowest rounded-md font-body-md font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                 Suivant
+                 <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</nav>
+</main>
+<!-- Mobile Bottom NavBar (Suppressed for focused learn screen as per logic, keeping layout clean) -->
+</body></html>

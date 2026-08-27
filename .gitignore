@@ -1,0 +1,85 @@
+# Ignore Morphalou generated files
+/open-data/morphalou/*.zip
+/open-data/morphalou/*.sqlite
+# Private source material and third-party reference assets
+/data-private/
+/reference-private/
+/vocabulary resources/
+/Reference App/
+/Not in use plan and thoughts/
+
+# Raw books, exam sources, exports, and large reference datasets
+# Keep these local even if they are accidentally copied outside the folders above.
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.odt
+*.rtf
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.tgz
+*.jsonl
+*.ndjson
+
+# Generated or downloaded media
+*.mp3
+*.m4a
+*.wav
+*.aac
+*.mp4
+*.mov
+*.webm
+
+# Local secrets
+.env*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*credentials*.json
+*secrets*.json
+
+# macOS
+.DS_Store
+
+# Local editor state and approvals
+.vscode/
+.idea/
+
+# Node / Next.js
+node_modules/
+.pnpm-store/
+.next/
+out/
+coverage/
+dist/
+*.tsbuildinfo
+/tmp/
+
+# Local databases and generated audio
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+/public/audio-cache/
+/docs/screenshots/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+
+# Logs
+*.log
