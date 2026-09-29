@@ -1,47 +1,41 @@
 # AI Agent Guide
 
-This repository is a local-first TCF French learning instrument built with Next.js, React, TypeScript, Python, and browser speech synthesis.
+## Non-negotiable rules
 
-## Non-negotiable design rule
-Always obey the `Design/` folder. Read `Design/l_instrument/DESIGN.md` and the relevant prototype under `Design/` before changing UI, UX, layout, typography, color, or interaction behavior.
+Always obey `Design/`. Read `Design/l_instrument/DESIGN.md` and the relevant page prototype before changing UI, UX, typography, color, layout, or interaction behavior.
 
-## Architecture
+PostgreSQL is authoritative. Never restore runtime JSON loading or browser-only study state. Do not use Drizzle schema push in production; update `db/schema.ts`, generate and review a migration, and commit both. Never commit private sources, PDFs/books, large exports, generated databases, credentials, or `data-private/` content.
 
-- `app/`: Next.js App Router pages and API routes.
-- `components/`: client-side learning and table interfaces.
-- `domain/`: TypeScript contracts, question generation, stats, TTS, and study-readiness rules.
-- `python/`: DOCX/PDF ingestion, Kaikki dictionary enrichment, Morphalou morphology, OCR, and batch translation.
-- `data-private/`: ignored private sources and generated datasets.
-- `open-data/morphalou/`: Morphalou download metadata and ignored raw/index files.
-- `data-private/generated/items.json`: local production dataset.
+## Structure
 
-## Data rules
+- `db/schema.ts`: typed catalog, pipeline, review, and user-owned schema
+- `db/migrations/`: reviewed PostgreSQL migrations, extensions, RLS, and readiness guard
+- `db/*-repository.ts`: bounded database operations; user operations run through `withUserClient`
+- `app/api/`: cursor-paginated library, study item, review, progress, bookmark, and legacy-import endpoints
+- `domain/`: normalization, readiness, questions, TTS, stats, and FSRS adapter
+- `domain/i18n.ts`: complete English, Chinese, and French interface catalogs
+- `scripts/`: migrations, listening import/reconciliation, enrichment, review, and promotion
+- `python/`: document extraction and linguistic preparation
+- `data-private/`: ignored import and rollback artifacts only
 
-Only `STUDY_READY` learning entries may enter the normal learning queue. Keep `RAW`, `ENRICHMENT_PENDING`, and `NEEDS_REVIEW` records visible in review/debug views with missing-field reasons.
+## Data invariants
 
-Never match dictionary records by exact surface form only. Use Morphalou to map inflected forms to canonical lemmas, preserve all analyses when ambiguous, and do not guess an ambiguous lemma. Preserve `surface -> lemma -> morphology` for inflected occurrences.
+- Preserve `surface -> lexical entry -> lexeme`, every source occurrence, evidence, and stable external key.
+- Do not guess ambiguous morphology or overwrite reviewed canonical material with AI output.
+- Only `STUDY_READY` items enter review. The database trigger is the final enforcement layer.
+- Definitions, IPA, translations, morphology, conjugations, provenance, levels, priorities, and preferred examples are static reviewed data.
+- Search, filters, dashboards, due queues, distractors, hints, TTS, mnemonics, and alternate examples are ad hoc. Persist question options and seed as soon as shown.
+- Answer submission must remain transactional, idempotent, and FSRS-versioned.
+- Every new personal table requires RLS and a multi-user isolation test before public release.
+- Add every new interface label to all three language catalogs; do not hard-code mixed-language controls in components.
 
-Persist core correctness-sensitive data: French/Chinese definitions, preferred example sentence and translation, source provenance, morphology, and translation provider metadata. Keep TTS and optional enrichment lazy/cacheable.
+## Current next steps
 
-Keep source occurrences normalized and preserve every occurrence. Use `preferredOccurrenceId`; do not rely on array position.
+1. Build and inspect the broad catalog with `pnpm catalog:build`; verify source coverage and the 10k+ target.
+2. Import catalog-only records with `pnpm db:import:catalog`, then attach exact exam/curriculum occurrences.
+3. Review enrichment proposals and promote only complete records into `STUDY_READY`.
+4. Add coverage dashboards and reconciliation for new, matched, ambiguous, rejected, and incomplete content.
+5. Add real authentication and remove the development-user fallback before any public deployment.
+6. Benchmark at 100k lexemes and one million occurrences/events; partition only after measurement.
 
-Generate MCQ distractors from persisted verified senses at question creation time and preserve the question/session seed and shown options for reproducibility. Do not permanently attach one distractor set to a vocabulary item.
-
-## Commands
-
-```bash
-pnpm test
-pnpm exec tsc --noEmit
-pnpm build
-pnpm morphalou:download
-pnpm morphalou:build
-pnpm promote:listening
-pnpm translations:queue
-pnpm enrich:production
-```
-
-Public dictionary/translation APIs may rate-limit. Enrichment must remain resumable and must record failures explicitly; never promote failed or incomplete records.
-
-## Working style
-
-Keep edits focused, preserve private-data boundaries, add a focused test for behavior changes, and run the narrowest validation immediately after editing. Do not commit or reset user changes.
+Use `pnpm exec tsc --noEmit`, `pnpm test`, `pnpm build`, and `pnpm db:verify` for handoff. Keep edits focused and never reset unrelated user work.

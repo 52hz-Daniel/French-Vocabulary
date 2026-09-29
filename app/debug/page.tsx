@@ -1,9 +1,8 @@
-import { loadDataset } from "@/data/load-dataset";
-import { getEntryReadiness } from "@/domain/study-ready";
-
-export const dynamic = "force-dynamic";
+import Link from "next/link";
+import { serverTranslator } from "@/lib/server-language";
 
 export default async function DebugPage() {
-  const data = await loadDataset();
-  return <section className="page-shell"><div className="eyebrow">Enrichment review</div><h1>Vocabulary records</h1><p className="lead">Pending fields stay visible here and never enter the normal learning queue.</p><div className="table-wrap"><table><thead><tr><th>Surface</th><th>Lexeme</th><th>Morphology</th><th>Meaning</th><th>Source</th><th>Learning status</th><th>Missing fields</th></tr></thead><tbody>{data.lexemes.map((lexeme) => { const occurrence = lexeme.occurrences[0]; const sense = lexeme.senses[0]; const entry = data.learningEntries?.find((item) => item.lexemeId === lexeme.id); const readiness = entry ? getEntryReadiness(entry, data) : { status: "RAW", reasons: ["learning_entry"] }; return <tr key={lexeme.id}><td>{occurrence.surfaceForm}</td><td>{lexeme.lemma}</td><td>{occurrence.morphology ?? "—"}</td><td>{sense.chineseGloss}</td><td>{occurrence.sourceReference}</td><td><span className={`status ${readiness.status.toLowerCase()}`}>{readiness.status}</span></td><td>{readiness.reasons.join(", ") || "—"}</td></tr>; })}</tbody></table></div></section>;
+  const configured = Boolean(process.env.DATABASE_URL);
+  const { t } = await serverTranslator();
+  return <section className="page-shell narrow"><div className="eyebrow">{t("debug.eyebrow")}</div><h1>{t("debug.title")}</h1><p className="lead">{t("debug.intro")}</p><div className="study-summary"><div><span>{t("debug.database")}</span><strong>{configured?t("debug.ready"):t("debug.missing")}</strong></div><div><span>{t("debug.schema")}</span><strong>v1</strong></div><div><span>{t("debug.auth")}</span><strong>{t("debug.dev")}</strong></div></div>{!configured&&<p>{t("debug.setup")}</p>}<Link className="primary-button" href="/library">{t("debug.open")} <span>→</span></Link></section>;
 }

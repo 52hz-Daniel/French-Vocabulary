@@ -1,0 +1,27 @@
+.git
+.github
+.next
+node_modules
+.pnpm-store
+.env*
+!.env.example
+
+# Private/licensed source material and local pipeline artifacts are never baked
+# into the public web image. Processed records are imported into PostgreSQL.
+data-private
+reference-private
+vocabulary resources
+Reference App
+Not in use plan and thoughts
+open-data/morphalou/*.sqlite
+open-data/morphalou/*.zip
+
+.DS_Store
+.pytest_cache
+__pycache__
+*.pyc
+*.log
+*.tsbuildinfo
+tmp
+Design
+docs/screenshots

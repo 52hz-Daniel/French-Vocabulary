@@ -1,26 +1,27 @@
 import Link from "next/link";
-import { loadDataset } from "@/data/load-dataset";
+import { getTodaySummary } from "@/db/catalog-repository";
+import { serverTranslator } from "@/lib/server-language";
 
 export const dynamic = "force-dynamic";
 
 export default async function TodayPage() {
-  const data = await loadDataset();
-  const ready = data.learningEntries?.filter((entry) => entry.status === "STUDY_READY").length ?? 0;
-  const available = data.collections.find((item) => item.available);
-  const studyCount = ready || (available ? data.lexemes.filter((item) => item.collectionIds.includes(available.id)).length : 0);
+  const { t } = await serverTranslator();
+  let summary: Awaited<ReturnType<typeof getTodaySummary>>;
+  try { summary = await getTodaySummary(); }
+  catch { summary = { available: 0, due: 0, difficult: 0, collection_title: null }; }
   return <section className="today-shell">
     <header className="today-hero">
-      <h1>Bonjour, Antoine.</h1>
-      <p>Votre session d&apos;étude quotidienne est prête.<br />L&apos;instrument est calibré.</p>
-      <Link className="primary-button today-action" href={studyCount ? "/vocabulary" : "/debug"}>{studyCount ? "Commencer la révision" : "Vérifier les données"}<span className="material-symbols-outlined" aria-hidden="true">arrow_forward</span></Link>
+      <h1>{t("today.greeting")}</h1>
+      <p>{t("today.ready")}<br />{t("today.calibrated")}</p>
+      <Link className="primary-button today-action" href={summary.due ? "/vocabulary" : "/debug"}>{summary.due ? t("today.start") : t("today.checkData")}<span className="material-symbols-outlined" aria-hidden="true">arrow_forward</span></Link>
     </header>
     <section className="today-section">
-      <div className="section-title"><span className="material-symbols-outlined">fact_check</span>Programme du jour</div>
-      <div className="today-metrics"><div><strong>{Math.min(studyCount, 12)}</strong><span>mots à apprendre</span></div><div><strong>{studyCount}</strong><span>mots à réviser</span></div><div className="difficult"><strong>0</strong><span>mots difficiles</span></div></div>
+      <div className="section-title"><span className="material-symbols-outlined">fact_check</span>{t("today.program")}</div>
+      <div className="today-metrics"><div><strong>{summary.available}</strong><span>{t("today.learn")}</span></div><div><strong>{summary.due}</strong><span>{t("today.review")}</span></div><div className="difficult"><strong>{summary.difficult}</strong><span>{t("today.difficult")}</span></div></div>
     </section>
     <section className="today-section recent-section">
-      <div className="section-title"><span className="material-symbols-outlined">show_chart</span>Progression récente</div>
-      <div className="streak-row"><div><strong>Série en cours</strong><span>{available ? `Collection active : ${available.name}` : "Aucune collection active"}</span></div><div className="streak-dots" aria-label="Study streak"><i /><i /><i /><i /><i className="today-dot" /><small>Auj</small></div></div>
+      <div className="section-title"><span className="material-symbols-outlined">show_chart</span>{t("today.recent")}</div>
+      <div className="streak-row"><div><strong>{t("today.streak")}</strong><span>{summary.collection_title ? `${t("today.activeCollection")}: ${summary.collection_title}` : t("today.connect")}</span></div><div className="streak-dots" aria-label={t("today.streak")}><i /><i /><i /><i /><i className="today-dot" /><small>{t("today.today")}</small></div></div>
     </section>
   </section>;
 }

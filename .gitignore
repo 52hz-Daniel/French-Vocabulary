@@ -53,6 +53,7 @@
 # Local editor state and approvals
 .vscode/
 .idea/
+/:memory:.ses
 
 # Node / Next.js
 node_modules/

@@ -1,4 +1,4 @@
-import type { Dataset, Lexeme } from "@/domain/types";
+ import type { Dataset, Lexeme } from "@/domain/types";
 
 const fixtureWords: Array<[string, string, string, string]> = [
   ["préparer", "准备", "verb", "Je prépare un projet important pour demain."],

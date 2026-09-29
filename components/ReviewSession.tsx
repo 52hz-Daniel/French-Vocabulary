@@ -1,83 +1,29 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import type { Dataset } from "@/domain/types";
-import { buildRecognitionQuestion } from "@/domain/questions";
-import { recordStudyResult } from "@/domain/stats";
 import AudioButton from "./AudioButton";
-import { browserTTS } from "@/domain/tts";
+import { useLanguage } from "./LanguageProvider";
 
-type Feedback = "correct" | "incorrect" | undefined;
-type Mode = "choice" | "audio" | "typing";
+interface Question { questionId:string; studyItemId:string; word:string; ipa:string|null; partOfSpeech:string; sentenceFrench:string; options:Array<{senseId:string;label:string}> }
 
 export default function ReviewSession() {
-  const [data, setData] = useState<Dataset>();
-  const [index, setIndex] = useState(0);
-  const [selected, setSelected] = useState<string>();
-  const [feedback, setFeedback] = useState<Feedback>();
-  const [hint, setHint] = useState(false);
-  const [answer, setAnswer] = useState("");
-  const [startedAt, setStartedAt] = useState(() => Date.now());
+  const { t } = useLanguage();
+  const [sessionId,setSessionId]=useState<string>();
+  const [question,setQuestion]=useState<Question>();
+  const [selected,setSelected]=useState<string>();
+  const [feedback,setFeedback]=useState<{correct:boolean;correctSenseId?:string}>();
+  const [error,setError]=useState<string>();
+  const [done,setDone]=useState(false);
+  const [startedAt,setStartedAt]=useState(Date.now());
+  const [favorite,setFavorite]=useState(false);
 
-  useEffect(() => {
-    fetch("/api/dataset").then((response) => response.json()).then(setData);
-    return () => browserTTS()?.stop();
-  }, []);
-  const items = useMemo(() => data?.lexemes.slice().sort((a, b) => b.priority - a.priority) ?? [], [data]);
-  const item = items[index];
-  const question = useMemo(() => item && data ? buildRecognitionQuestion(item, data.lexemes, index) : undefined, [data, index, item]);
-  const mode: Mode = index % 5 === 3 ? "typing" : index % 5 === 2 ? "audio" : "choice";
-
-  if (!data) return <section className="review-shell"><p>Préparation de la session…</p></section>;
-  if (!item || !question) return <section className="review-shell review-complete"><div className="eyebrow">Session terminée</div><h1>Bien joué.</h1><Link className="primary-button" href="/today">Retour à aujourd&apos;hui</Link></section>;
-  const occurrence = item.occurrences[0];
-  const sense = item.senses[0];
-  const collectionId = item.collectionIds[0] ?? "review";
-  const submitChoice = () => {
-    if (!selected || feedback) return;
-    const correct = selected === question.correctSenseId;
-    setFeedback(correct ? "correct" : "incorrect");
-    recordStudyResult(window.localStorage, collectionId, item.id, correct, (Date.now() - startedAt) / 1000);
-  };
-  const submitTyping = (event: FormEvent) => {
-    event.preventDefault();
-    if (!answer.trim()) return;
-    const correct = answer.trim().localeCompare(item.lemma, "fr", { sensitivity: "base" }) === 0;
-    setFeedback(correct ? "correct" : "incorrect");
-    recordStudyResult(window.localStorage, collectionId, item.id, correct, (Date.now() - startedAt) / 1000);
-  };
-  const advance = () => {
-    browserTTS()?.stop(); setSelected(undefined); setFeedback(undefined); setHint(false); setAnswer(""); setStartedAt(Date.now());
-    if (index + 1 >= items.length) setIndex(items.length); else setIndex(index + 1);
-  };
-  const sentenceParts = occurrence.sentence.split(new RegExp(`(${occurrence.surfaceForm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "i"));
-
-  return <section className={`review-shell ${mode === "typing" ? "typing-mode" : ""}`}>
-    <div className="review-progress"><i style={{width: `${((index + 1) / items.length) * 100}%`}} /></div>
-    {mode === "typing" ? <form className="recall-card" onSubmit={submitTyping}>
-      <div className="recall-heading"><span>Active Recall</span><span>{index + 1} / {items.length}</span></div>
-      <div className="recall-reference"><h2>{sense.chineseGloss}</h2><p>{item.partOfSpeech}{sense.synonyms.length ? ` — Synonyme: ${sense.synonyms[0]}` : ""}</p><AudioButton text={item.lemma} kind="word" label="Play Word" /></div>
-      <div className="recall-sentence"><p>{sentenceParts.map((part, partIndex) => part.toLocaleLowerCase("fr") === occurrence.surfaceForm.toLocaleLowerCase("fr") ? <span className="recall-input-wrap" key={partIndex}><input autoFocus value={answer} onChange={(event) => { setAnswer(event.target.value); setFeedback(undefined); }} aria-label="Type the missing French word" className={feedback === "incorrect" ? "incorrect" : feedback === "correct" ? "correct" : ""} placeholder="________" />{feedback === "incorrect" && <small>Réessayez</small>}</span> : part)}</p><AudioButton text={occurrence.sentence} kind="sentence" label="Play Sentence" /></div>
-      <div className="review-actions"><button type="button" className="skip-button" onClick={advance}>Skip for now</button><span className="key-hint">Press <kbd>Enter ↵</kbd></span>{feedback === "correct" ? <button className="primary-button" type="button" onClick={advance}>Continuer</button> : <button className="primary-button" type="submit">{feedback === "incorrect" ? "Vérifier à nouveau" : "Vérifier"}</button>}</div>
-    </form> : <div className="quiz-card">
-      <header className="quiz-word">
-        <div className="word-meta">{item.ipa ? `/${item.ipa}/` : "/ français /"}<i />{item.partOfSpeech}</div>
-        {mode === "audio" ? <><button className="audio-hero" onClick={() => browserTTS()?.speakWord(item.lemma)} aria-label="Écouter le mot"><span className="material-symbols-outlined">play_arrow</span></button><h1>Écouter le mot</h1><span className="keyboard-copy">Raccourci clavier : <kbd>Espace</kbd></span></> : <><h1>{item.lemma}</h1><AudioButton text={item.lemma} kind="word" label="Écouter" /></>}
-      </header>
-      <section className="quiz-question">
-        <h2>{mode === "audio" ? "Sélectionnez la traduction correcte" : "Choisissez la définition correcte"}</h2>
-        <button className="hint-toggle" onClick={() => setHint((value) => !value)}><span className="material-symbols-outlined">lightbulb</span>Besoin d&apos;un indice ? <kbd>H</kbd></button>
-        {hint && <div className="hint-note"><p>“{occurrence.sentence}”</p><AudioButton text={occurrence.sentence} kind="sentence" label="Écouter l'exemple" /></div>}
-        <div className="quiz-options">{question.options.map((option, optionIndex) => {
-          const isSelected = selected === option.senseId;
-          const isCorrect = feedback && option.senseId === question.correctSenseId;
-          const isWrong = feedback === "incorrect" && isSelected;
-          return <button key={option.senseId} disabled={Boolean(feedback)} className={`${isSelected ? "selected" : ""} ${isCorrect ? "correct" : ""} ${isWrong ? "incorrect" : ""}`} onClick={() => setSelected(option.senseId)}><span className="option-number">{optionIndex + 1}</span><span className="option-letter">{String.fromCharCode(65 + optionIndex)}</span><strong>{option.label}</strong>{isCorrect && <span className="material-symbols-outlined result-icon">check_circle</span>}{isWrong && <span className="material-symbols-outlined result-icon">cancel</span>}</button>;
-        })}</div>
-        {feedback === "incorrect" && <aside className="usage-note"><span>Note d&apos;usage</span><p>« {item.lemma} » signifie <strong>{sense.chineseGloss}</strong>. Observez son emploi dans la phrase d&apos;exemple.</p></aside>}
-      </section>
-      <footer className="quiz-actions"><span>{index + 1} / {items.length}</span><button className="primary-button" disabled={!selected} onClick={feedback ? advance : submitChoice}>{feedback ? "Continuer" : "Vérifier"}</button></footer>
-    </div>}
-  </section>;
+  const loadNext=async(id:string)=>{setSelected(undefined);setFeedback(undefined);setQuestion(undefined);setFavorite(false);const response=await fetch(`/api/review/next?sessionId=${id}`);const value=await response.json();if(!response.ok)throw new Error(value.error??t("review.cannotStart"));if(!value.question){setDone(true);return;}setQuestion(value.question);setStartedAt(Date.now());const bookmark=await fetch(`/api/bookmarks/${value.question.studyItemId}`).then((result)=>result.json());setFavorite(Boolean(bookmark.bookmarked));};
+  useEffect(()=>{fetch("/api/review/sessions",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({collectionId:"tcf-listening"})}).then(async response=>{const value=await response.json();if(!response.ok)throw new Error(value.error??t("review.cannotStart"));setSessionId(value.sessionId);await loadNext(value.sessionId);}).catch(reason=>setError(reason instanceof Error?reason.message:t("review.cannotStart")));},[]);
+  const submit=async()=>{if(!sessionId||!question||!selected)return;const response=await fetch(`/api/review/sessions/${sessionId}/answers`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({questionId:question.questionId,selectedSenseId:selected,idempotencyKey:crypto.randomUUID(),responseMs:Date.now()-startedAt})});const value=await response.json();if(!response.ok)throw new Error(value.error??"Answer submission failed");setFeedback(value);};
+  const toggleFavorite=async()=>{if(!question)return;const desired=!favorite;setFavorite(desired);const response=await fetch(`/api/bookmarks/${question.studyItemId}`,{method:desired?"PUT":"DELETE"});if(!response.ok)setFavorite(!desired);};
+  if(error)return <section className="review-shell review-complete"><div className="eyebrow">{t("review.databaseError")}</div><h1>{t("review.cannotStart")}</h1><p>{error}</p><Link className="primary-button" href="/today">{t("review.back")}</Link></section>;
+  if(done)return <section className="review-shell review-complete"><div className="eyebrow">{t("review.complete")}</div><h1>{t("review.wellDone")}</h1><p>{t("review.noneDue")}</p><Link className="primary-button" href="/today">{t("review.backToday")}</Link></section>;
+  if(!question)return <section className="review-shell"><div className="quiz-card"><p>{t("review.preparing")}</p></div></section>;
+  return <section className="review-shell"><div className="review-progress"><i style={{width:"8%"}}/></div><div className="quiz-card"><header className="quiz-word"><div className="word-meta">{question.ipa?`/${question.ipa}/`:"/ français /"}<i/>{question.partOfSpeech}</div><h1>{question.word}</h1><AudioButton text={question.word} kind="word" label={t("review.listen")} /></header><section className="quiz-question"><h2>{t("review.choose")}</h2><div className="hint-note"><p>“{question.sentenceFrench}”</p><AudioButton text={question.sentenceFrench} kind="sentence" label={t("review.listenExample")} /></div><div className="quiz-options">{question.options.map((option,index)=>{const isSelected=selected===option.senseId;const correct=feedback&&option.senseId===feedback.correctSenseId;const wrong=feedback&&!feedback.correct&&isSelected;return <button key={option.senseId} disabled={Boolean(feedback)} className={`${isSelected?"selected":""} ${correct?"correct":""} ${wrong?"incorrect":""}`} onClick={()=>setSelected(option.senseId)}><span className="option-number">{index+1}</span><span className="option-letter">{String.fromCharCode(65+index)}</span><strong>{option.label}</strong>{correct&&<span className="material-symbols-outlined result-icon">check_circle</span>}{wrong&&<span className="material-symbols-outlined result-icon">cancel</span>}</button>})}</div>{feedback&&<button className={`secondary-button review-favorite ${favorite?"is-favorite":""}`} aria-pressed={favorite} onClick={()=>void toggleFavorite()}><span className="material-symbols-outlined">{favorite?"bookmark_added":"bookmark_add"}</span>{favorite?t("learn.favorited"):t("learn.addFavorite")}</button>}</section><footer className="quiz-actions"><span>FSRS</span><button className="primary-button" disabled={!selected} onClick={()=>{if(feedback&&sessionId)void loadNext(sessionId).catch(reason=>setError(String(reason)));else void submit().catch(reason=>setError(String(reason)));}}>{feedback?t("review.continue"):t("review.check")}</button></footer></div></section>;
 }

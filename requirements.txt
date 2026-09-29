@@ -2,3 +2,4 @@ pytest>=7.4,<9
 pypdf>=5,<7
 Pillow>=10,<12
 pytesseract>=0.3.13,<0.4
+argostranslate>=1.11,<2

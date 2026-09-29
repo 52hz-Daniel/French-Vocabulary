@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -78,6 +80,77 @@ def merge_translation_cache(dataset_path: Path, cache_path: Path, output_path: P
     print(f"Wrote {output_path} ({len(translations)} translations merged)")
 
 
+def translate_offline(queue_path: Path, runtime_path: Path, models_path: Path, data_path: Path) -> None:
+    """Fill a translation queue with pinned local Argos models via fr→en→zh."""
+    sys.path.insert(0, str(runtime_path.resolve()))
+    os.environ["XDG_DATA_HOME"] = str((data_path / "share").resolve())
+    os.environ["XDG_CONFIG_HOME"] = str((data_path / "config").resolve())
+    os.environ["XDG_CACHE_HOME"] = str((data_path / "cache").resolve())
+    os.environ["ARGOS_PACKAGES_DIR"] = str((data_path / "packages").resolve())
+    os.environ["ARGOS_STANZA_AVAILABLE"] = "0"
+    os.environ["ARGOS_CHUNK_TYPE"] = "MINISBD"
+    from argostranslate import package, translate
+
+    installed = {(item.from_code, item.to_code) for item in package.get_installed_packages()}
+    for source_code, target_code, filename in (
+        ("fr", "en", "translate-fr_en-1_9.argosmodel"),
+        ("en", "zh", "translate-en_zh-1_9.argosmodel"),
+    ):
+        if (source_code, target_code) not in installed:
+            model = models_path / filename
+            if not model.exists():
+                raise RuntimeError(f"Missing offline translation model: {model}")
+            package.install_from_path(model)
+    french = translate.get_translation_from_codes("fr", "en")
+    chinese = translate.get_translation_from_codes("en", "zh")
+    if french is None or chinese is None:
+        raise RuntimeError("Argos French→English→Chinese translation chain is unavailable")
+    class SingleSentence:
+        def split_sentences(self, text: str) -> list[str]:
+            return [text]
+    def disable_external_sbd(item: Any, seen: set[int] | None = None) -> None:
+        seen = seen or set()
+        if id(item) in seen:
+            return
+        seen.add(id(item))
+        if hasattr(item, "sentencizer"):
+            item.sentencizer = SingleSentence()
+        for attribute in ("underlying", "t1", "t2"):
+            child = getattr(item, attribute, None)
+            if child is not None:
+                disable_external_sbd(child, seen)
+    disable_external_sbd(french)
+    disable_external_sbd(chinese)
+
+    payload = json.loads(queue_path.read_text(encoding="utf-8"))
+    translations = payload.get("translations", [])
+    cache: dict[str, str] = {}
+    for index, item in enumerate(translations, start=1):
+        if item.get("sentenceZh"):
+            continue
+        sentence = str(item.get("sentenceFr", "")).strip()
+        if not sentence:
+            continue
+        translated = cache.get(sentence)
+        if translated is None:
+            translated = chinese.translate(french.translate(sentence)).strip()
+            cache[sentence] = translated
+        if translated:
+            item.update({
+                "sentenceZh": translated,
+                "provider": "Argos Translate (fr-en 1.9 + en-zh 1.9)",
+                "modelVersion": "argos-fr_en-1.9+en_zh-1.9",
+                "translationStatus": "translated",
+                "translatedAt": datetime.now(timezone.utc).isoformat(),
+            })
+        if index % 25 == 0:
+            queue_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+            print(f"Translated {index}/{len(translations)}", flush=True)
+    queue_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    completed = sum(bool(item.get("sentenceZh")) for item in translations)
+    print(f"Wrote {queue_path} ({completed}/{len(translations)} translated)")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Create or merge persisted sentence translations.")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -88,8 +161,15 @@ if __name__ == "__main__":
     merge.add_argument("dataset", type=Path)
     merge.add_argument("cache", type=Path)
     merge.add_argument("output", type=Path)
+    offline = subparsers.add_parser("offline")
+    offline.add_argument("queue", type=Path)
+    offline.add_argument("--runtime", type=Path, default=Path("reference-private/python"))
+    offline.add_argument("--models", type=Path, default=Path("reference-private/argos/models"))
+    offline.add_argument("--data", type=Path, default=Path("reference-private/argos/runtime"))
     args = parser.parse_args()
     if args.command == "queue":
         build_translation_queue(args.dataset, args.output)
-    else:
+    elif args.command == "merge":
         merge_translation_cache(args.dataset, args.cache, args.output)
+    else:
+        translate_offline(args.queue, args.runtime, args.models, args.data)

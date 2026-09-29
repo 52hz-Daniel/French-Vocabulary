@@ -1,0 +1,3 @@
+ALTER TABLE "content_review_tasks" ADD CONSTRAINT "content_review_tasks_assigned_to_app_users_id_fk" FOREIGN KEY ("assigned_to") REFERENCES "public"."app_users"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "senses" ADD CONSTRAINT "senses_reviewed_by_app_users_id_fk" FOREIGN KEY ("reviewed_by") REFERENCES "public"."app_users"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
+CREATE UNIQUE INDEX "encounter_events_one_answer_per_question_uidx" ON "encounter_events" USING btree ("user_id","question_id") WHERE "encounter_events"."event_type" = 'review_answer';
